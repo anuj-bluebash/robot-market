@@ -1,10 +1,9 @@
-
-
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectCartItems, selectCartTotal } from '../../redux/cart/cart.selectors'
 import CheckoutItem from '../../components/checkout-item/checkout-item.component'
+import { thbPrice } from "../../utils/helper";
 
 import './cart-dropdown.styles.scss';
 
@@ -17,7 +16,7 @@ const CartDropdown = ({cartItems, total}) => (
       </div>
 
       <div className="header-block">
-        <span>Description</span>
+        <span>Name</span>
       </div>
 
       <div className="header-block">
@@ -38,7 +37,7 @@ const CartDropdown = ({cartItems, total}) => (
         )
     }
     <div className='total'>
-        <span>TOTAL: ${total}</span>
+        <span>TOTAL: {thbPrice(total)}</span>
     </div>
   </div>
 );

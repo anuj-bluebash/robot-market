@@ -17,7 +17,7 @@ const CollectionsOverview = ({ collections, productsLoad }) => {
   return(
     <div className={'collections-overview'}>
       {collections.map((item) => (
-      <CollectionItem key={item.name} item={item} />
+        <CollectionItem key={item.name} item={item} />
       ))}
     </div>
   )}

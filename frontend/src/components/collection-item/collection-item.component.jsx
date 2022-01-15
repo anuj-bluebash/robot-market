@@ -2,11 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { addItem }from '../../redux/cart/cart.actions.js';
 
+import { formatDate, thbPrice } from "../../utils/helper";
+import {selectCartItems} from '../../redux/cart/cart.selectors';
+import { createStructuredSelector } from "reselect";
+
 import './collection-item.styles.scss';
 
 
-const CollectionItem = ({item, addItem}) => {
-    const {name, price, image: imageUrl } = item;
+const CollectionItem = ({item, addItem, uniqItems}) => {
+    const {name, price, stock, createdAt, material, image: imageUrl } = item;
     return (
       <div className="collection-item">
         <img src={imageUrl}
@@ -14,10 +18,21 @@ const CollectionItem = ({item, addItem}) => {
         />
         <div className="collection-footer">
           <span className="name"> {name} </span>
-          <span className="price"> {price} </span>
+          <span className="price">{thbPrice(price)} </span>
+        </div>
+        <div className="collection-info">
+          <span>  Material: {material}, Created: {formatDate(createdAt)}, Stock: {stock}   </span>
         </div>
 
-        <button className="custom-button" onClick={ () =>  addItem(item)}>Add to cart</button>
+
+        { stock > 0 ?
+          <button className="custom-button"
+            onClick={ () =>  {uniqItems.length > 5 ? alert("You can't add more than 5 unique items") : addItem(item) }}>
+            Add to cart
+          </button>
+          :
+          <button className="custom-button out-of-stock">Out of stock</button>
+        }
       </div>
     );
 }
@@ -26,4 +41,8 @@ const mapDispatchToProps = dispatch => ({
     addItem: item => dispatch(addItem(item))
 })
 
-export default connect(null, mapDispatchToProps) (CollectionItem);
+const mapStateToProps = createStructuredSelector({
+  uniqItems: selectCartItems
+});
+
+export default connect(mapStateToProps, mapDispatchToProps) (CollectionItem);

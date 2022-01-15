@@ -5,7 +5,7 @@
   height: 350px;
   align-items: center;
   position: relative;
-  margin-bottom: 22px;
+  margin-bottom: 100px;
 
   .image {
     width: 100%;
@@ -50,6 +50,11 @@
       width: 10%;
     }
   }
+
+  .collection-info{
+    padding-top: 20px;
+    color: darkslategray;
+  }
 }
 
 .custom-button {
@@ -87,4 +92,12 @@
       border: none;
     }
   }
+}
+
+.out-of-stock{
+  background-color: white !important;
+  color: black !important;
+  cursor: default !important;
+  color: black;
+  border: 1px solid black;
 }

@@ -1,24 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { clearItemFromCart, addItem, removeItem } from '../../redux/cart/cart.actions.js'
+import { formatDate, thbPrice } from "../../utils/helper";
 
 import './checkout-item.styles.scss';
-// import { removeItemFromCart } from '../../redux/cart/cart.utils.js';
 
 const CheckoutItem = ({ cartItem, clearItem, addItem, removeItem }) => {
-  const { name, image, price, quantity } = cartItem;
+  const { name, image, price, quantity, material } = cartItem;
   return (
     <div className="checkout-item">
       <div className="image-container">
         <img src={image} alt="item" width="50" height="50"/>
       </div>
       <span className="name">{name}</span>
+
       <span className="quantity">
         <div className="arrow" onClick={() => removeItem(cartItem)} >&#10094;</div>
         <span className="value">{quantity}</span>
         <div className="arrow" onClick={() => addItem(cartItem)}>&#10095;</div>
       </span>
-      <span className="price">{price}</span>
+      <span className="price">{thbPrice(price)}</span>
       <div className="remove-button" onClick={() => clearItem(cartItem)}>
         &#10005;
       </div>
